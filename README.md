@@ -23,6 +23,8 @@ The last line in the example above defines the path where openHAB can find your 
 
 * Put the demo.py file in your `automation/jsr223` directory and watch the openHAB log file carefully.
 
+* Optional. For some functionality, like the ability to send autoremote messages for example, there is some configuration to do. In LIB-DIR/lucid, rename the file example_config.py to config.py and edit that file to suit your needs. It should be quite self explanatory what it's all about.
+
 * You are now ready to make your own scripts based on lucid. Have a look at the examples.
 
 ## openHAB Jython Scripting on Slack
