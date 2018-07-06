@@ -8,12 +8,12 @@ from org.osgi.service.cm import ManagedService
 from org.eclipse.smarthome.config.core import Configuration
 from org.eclipse.smarthome.automation.handler import TriggerHandler
 
-import openhab
-from openhab.jsr223 import scope
+import lucid
+from lucid.jsr223 import scope
 scope.scriptExtension.importPreset("RuleSupport")
 
-from openhab.osgi import bundle_context
-from openhab.log import logging
+from lucid.osgi import bundle_context
+from lucid.log import logging
 
 import uuid
 import java.util
