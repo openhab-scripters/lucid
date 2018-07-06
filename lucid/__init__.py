@@ -1,4 +1,4 @@
-from lucid.jsr223.scope import items
+from openhab.jsr223.scope import items
 
 #
 # Add an attribute-resolver to the items map
