@@ -1,4 +1,4 @@
-from openhab.jsr223.scope import scriptExtension
+from lucid.jsr223.scope import scriptExtension
 from org.osgi.framework import FrameworkUtil
 
 _bundle = FrameworkUtil.getBundle(type(scriptExtension))
