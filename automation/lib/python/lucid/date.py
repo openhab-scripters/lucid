@@ -1,6 +1,6 @@
 """
 Date/time utilities for converting between the several different types
-used by openHAB.
+used by lucid.
 """
 import datetime
 import sys

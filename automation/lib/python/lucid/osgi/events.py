@@ -18,7 +18,7 @@ from lucid.log import logging
 import uuid
 import java.util
 
-log = logging.getLogger("jython.openhab.osgi.events")
+log = logging.getLogger("jython.lucid.osgi.events")
 
 def hashtable(*key_values):
     """
@@ -31,7 +31,7 @@ def hashtable(*key_values):
     return ht
 
 class OsgiEventAdmin(object):
-    log = logging.getLogger("jython.openhab.osgi.events.OsgiEventAdmin")
+    log = logging.getLogger("jython.lucid.osgi.events.OsgiEventAdmin")
     
     _event_handler = None
     _event_listeners = []
@@ -39,10 +39,10 @@ class OsgiEventAdmin(object):
     # Singleton
     class OsgiEventHandler(EventHandler):
         def __init__(self):
-            self.log = logging.getLogger("jython.openhab.osgi.events.OsgiEventHandler")
+            self.log = logging.getLogger("jython.lucid.osgi.events.OsgiEventHandler")
             self.registration = bundle_context.registerService(
                 EventHandler, self, hashtable((EventConstants.EVENT_TOPIC, ["*"])))
-            self.log.info("Registered openHAB OSGI event listener service")
+            self.log.info("Registered lucid OSGI event listener service")
             self.log.debug("registration=%s", self.registration)
 
         def handleEvent(self, event):
@@ -71,7 +71,7 @@ class OsgiEventAdmin(object):
             cls._event_listeners.remove(listener)
         if len(cls._event_listeners) == 0:
             if cls._event_handler is not None:
-                cls.log.info("Unregistering openHAB OSGI event listener service")
+                cls.log.info("Unregistering lucid OSGI event listener service")
                 cls._event_handler.dispose()
                 cls._event_handler = None
 
@@ -92,7 +92,7 @@ class OsgiEventTrigger(scope.Trigger):
         self.filter = filter or (lambda event: True)
         triggerId = type(self).__name__ + "-" + uuid.uuid1().hex
         config = Configuration()
-        scope.Trigger.__init__(self, triggerId, openhab.OSGI_TRIGGER_ID, config)
+        scope.Trigger.__init__(self, triggerId, lucid.OSGI_TRIGGER_ID, config)
         global osgi_triggers
         osgi_triggers[self.id] = self
 
