@@ -1,6 +1,6 @@
 # NOTE: Requires JythonItemProvider component
 
-from openhab import osgi, jsr223, JythonItemProvider
+from lucid import osgi, jsr223, JythonItemProvider
 from org.eclipse.smarthome.core.library.items import StringItem
 from org.eclipse.smarthome.core.items import Item, ItemProvider
 
@@ -17,4 +17,3 @@ def add(item, item_type=None):
 
 def remove(item):
     JythonItemProvider.remove(item)
-

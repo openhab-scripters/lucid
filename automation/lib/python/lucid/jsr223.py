@@ -36,7 +36,7 @@ class _Jsr223ModuleFinder(object):
                         # print "auto-import preset ", name, preset, scriptExtension
                         scriptExtension.importPreset(preset[1])
             return value if value is not None else _get_scope_value(scope, name)
-    
+
     def load_module(self, fullname):
         if fullname not in sys.modules:
             m = _Jsr223ModuleFinder.ScopeModule('scope')
@@ -46,15 +46,13 @@ class _Jsr223ModuleFinder(object):
             sys.modules[fullname] = m
                 
     def find_module(self, fullname, path=None):
-        if fullname == "openhab.jsr223.scope":
+        if fullname == "lucid.jsr223.scope":
             return self
-        
+
 sys.meta_path.append(_Jsr223ModuleFinder())
- 
+
 def get_automation_manager():
     scope = get_scope()
     _get_scope_value(scope, "scriptExtension").importPreset("RuleSupport")
     automation_manager = _get_scope_value(scope, "automationManager")
     return automation_manager
-
-

@@ -1,9 +1,9 @@
 from java.util import UUID
 from org.eclipse.smarthome.automation import Rule as SmarthomeRule
 
-from openhab.log import logging, log_traceback, LOG_PREFIX
+from lucid.log import logging, log_traceback, LOG_PREFIX
 
-from openhab.jsr223 import scope, get_automation_manager
+from lucid.jsr223 import scope, get_automation_manager
 scope.scriptExtension.importPreset("RuleSimple")
 
 def set_uid_prefix(rule, prefix=None):
@@ -12,7 +12,7 @@ def set_uid_prefix(rule, prefix=None):
     uid_field = type(SmarthomeRule).getClass(SmarthomeRule).getDeclaredField(SmarthomeRule, "uid")
     uid_field.setAccessible(True)
     uid_field.set(rule, "{}-{}".format(prefix, str(UUID.randomUUID())))
-    
+
 def rule(clazz):
     def init(self, *args, **kwargs):
         scope.SimpleRule.__init__(self)

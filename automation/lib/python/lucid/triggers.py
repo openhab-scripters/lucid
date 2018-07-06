@@ -10,12 +10,12 @@ from org.eclipse.smarthome.automation.handler import TriggerHandler
 from org.eclipse.smarthome.automation.type import TriggerType
 from org.eclipse.smarthome.config.core import Configuration
 
-import openhab
-from openhab.jsr223 import scope, get_automation_manager
+import lucid
+from lucid.jsr223 import scope, get_automation_manager
 scope.scriptExtension.importPreset("RuleSimple")
 
-from openhab.osgi.events import OsgiEventTrigger
-from openhab.log import logging, LOG_PREFIX
+from lucid.osgi.events import OsgiEventTrigger
+from lucid.log import logging, LOG_PREFIX
 
 class ItemStateUpdateTrigger(Trigger):
     def __init__(self, itemName, state=None, triggerName=None):
@@ -65,25 +65,25 @@ class ItemEventTrigger(Trigger):
 class StartupTrigger(Trigger):
     def __init__(self, triggerName=None):
         triggerName = triggerName or uuid.uuid1().hex
-        Trigger.__init__(self, triggerName, openhab.STARTUP_MODULE_ID, Configuration())
-    
+        Trigger.__init__(self, triggerName, lucid.STARTUP_MODULE_ID, Configuration())
+
 # Item Registry Triggers
 
 class ItemRegistryTrigger(OsgiEventTrigger):
     def __init__(self, event_name):
         OsgiEventTrigger.__init__(self)
         self.event_name = event_name
-        
+
     def event_filter(self, event):
         return event.get('type') == self.event_name
-    
+
     def event_transformer(self, event):
         return json.loads(event['payload'])
 
 class ItemAddedTrigger(ItemRegistryTrigger):
     def __init__(self):
         ItemRegistryTrigger.__init__(self, "ItemAddedEvent")
-        
+
 class ItemRemovedTrigger(ItemRegistryTrigger):
      def __init__(self):
         ItemRegistryTrigger.__init__(self, "ItemRemovedEvent")
@@ -91,7 +91,7 @@ class ItemRemovedTrigger(ItemRegistryTrigger):
 class ItemUpdatedTrigger(ItemRegistryTrigger):
     def __init__(self):
         ItemRegistryTrigger.__init__(self, "ItemUpdatedEvent")
-        
+
 # Directory watcher trigger
 
 class DirectoryEventTrigger(Trigger):
@@ -102,7 +102,7 @@ class DirectoryEventTrigger(Trigger):
             'event_kinds': str(event_kinds),
             'watch_subdirectories': watch_subdirectories,
         })
-        Trigger.__init__(self, triggerId, openhab.DIRECTORY_TRIGGER_MODULE_ID, config)
+        Trigger.__init__(self, triggerId, lucid.DIRECTORY_TRIGGER_MODULE_ID, config)
 
 # Function decorator trigger support
 
@@ -114,7 +114,7 @@ class _FunctionRule(scope.SimpleRule):
         if name is None and hasattr(callback, '__name__'):
             name = callback.__name__
         self.log = logging.getLogger(LOG_PREFIX + ("" if name is None else ("." + name)))
-        
+
     def execute(self, module, inputs):
         try:
             self.callback(module, inputs) if self.extended else self.callback()
@@ -153,7 +153,6 @@ def item_triggered(item_name, event_types=None, result_item_name=None, trigger_n
         get_automation_manager().addRule(rule)
         return fn
     return decorator
-
 
 def item_group_triggered(group_name, event_types=None, result_item_name=None, trigger_name=None):
     event_types = event_types or [ITEM_CHANGE]

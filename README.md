@@ -18,7 +18,7 @@ EXTRA_JAVA_OPTS=-Xbootclasspath/a:/home/pi/jython2.7.0/jython.jar \
 ```
 The last line in the example above defines the path where openHAB can find your jython library files. You might have choosen a different directory for your installation. We will now simply refer to that directory as the **LIB-DIR**. It's the directory where openHAB will look for your jython library files.
 
-* Download the [lucid zip file](https://github.com/OH-Jython-Scripters/lucid/archive/master.zip), extract it in a temporary location and transfer the complete lucid folder to your LIB-DIR.
+* Download the [lucid zip file](https://github.com/OH-Jython-Scripters/lucid/archive/master.zip), extract it in a temporary location and transfer the [lucid](https://github.com/OH-Jython-Scripters/lucid/tree/master/automation/lib/python/lucid) folder together with all its content (found in the zip file's automation/lib/python folder) into your LIB-DIR. 
 * Change the owner, group and file permissions. E.g. cd into the LIB-DIR. and run `chown -R openhab:openhab lucid` followed by `chmod -R 664 lucid`
 
 * Put the demo.py file in your `automation/jsr223` directory and watch the openHAB log file carefully.
