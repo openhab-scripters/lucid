@@ -3,7 +3,7 @@
 
 **lucid** can be used for general scripting purposes, including defining rules, triggers and conditions.
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License](https://img.shields.io/badge/License-EPL%201.0-red.svg)](https://opensource.org/licenses/EPL-1.0)
 
 #### Prerequisits
 * The Experimental Rule Engine add-on must be installed in openHAB 2.
