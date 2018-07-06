@@ -1,5 +1,5 @@
 import sys
-from openhab import osgi
+from lucid import osgi
 
 __all__ = []
 
