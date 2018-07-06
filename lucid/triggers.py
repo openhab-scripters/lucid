@@ -10,12 +10,12 @@ from org.eclipse.smarthome.automation.handler import TriggerHandler
 from org.eclipse.smarthome.automation.type import TriggerType
 from org.eclipse.smarthome.config.core import Configuration
 
-import openhab
-from openhab.jsr223 import scope, get_automation_manager
+import lucid
+from lucid.jsr223 import scope, get_automation_manager
 scope.scriptExtension.importPreset("RuleSimple")
 
-from openhab.osgi.events import OsgiEventTrigger
-from openhab.log import logging, LOG_PREFIX
+from lucid.osgi.events import OsgiEventTrigger
+from lucid.log import logging, LOG_PREFIX
 
 class ItemStateUpdateTrigger(Trigger):
     def __init__(self, itemName, state=None, triggerName=None):
