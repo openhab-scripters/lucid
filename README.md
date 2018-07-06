@@ -1,5 +1,5 @@
 # lucid
-**lucid** is an openHAB jsr223 Jython helper library based on [Steve Bate](https://github.com/steve-bate)'s great work [openHab2-jython](https://github.com/OH-Jython-Scripters/openhab2-jython)
+**lucid** is an openHAB jsr223 Jython helper based on a clone of [Steve Bate](https://github.com/steve-bate)'s great work [openHab2-jython](https://github.com/OH-Jython-Scripters/openhab2-jython)
 
 **lucid** can be used for general scripting purposes, including defining rules, triggers and conditions.
 
