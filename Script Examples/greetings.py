@@ -1,5 +1,7 @@
 # This scripts speaks a random greeting every minute on your Sonos speaker system.
-# 
+#
+# Please see: https://github.com/OH-Jython-Scripters/lucid/blob/master/README.md
+#
 # It assumes that you've set up an openHAB a contact items to represent the presence of
 # persons to be greeted. Each item should belong to the item group "G_Presence_Family"
 
@@ -32,10 +34,10 @@ class SayHello(object):
                 msg +='.'
             elif i+2 < len(peopleAtHome):
                 msg +=','
-        tts(msg, PRIO['HIGH'], ttsRoom='Kitchen', ttsVol=42, ttsLang='en-GB', ttsVoice='Brian')
+        #tts(msg, PRIO['HIGH'], ttsRoom='Kitchen', ttsVol=42, ttsLang='en-GB', ttsVoice='Brian')
         tts(msg, PRIO['HIGH'], ttsRoom='Kitchen', ttsVol=42, ttsLang='en-IN', ttsVoice='Aditi')
-        tts(msg, PRIO['HIGH'], ttsRoom='Kitchen', ttsVol=42, ttsLang='en-US', ttsVoice='Matthew')
-        tts(msg, None, ttsRoom='All', ttsLang='de-DE', ttsVoice='Vicki')
-        tts(msg) # Also works if you accept the defaults
+        #tts(msg, PRIO['HIGH'], ttsRoom='Kitchen', ttsVol=42, ttsLang='en-US', ttsVoice='Matthew')
+        #tts(msg, None, ttsRoom='All', ttsLang='de-DE', ttsVoice='Vicki')
+        #tts(msg) # Also works if you accept the defaults
 
 addRule(SayHello())
