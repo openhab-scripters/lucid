@@ -19,7 +19,7 @@ class SayHello(object):
         ]
 
     def execute(self, modules, inputs):
-        greetings = [greeting(), 'Hello', 'How are you', 'How are you doing', 'Good to see you', 'Long time no see or It\’s been a while']
+        greetings = [greeting(), 'Hello', 'How are you', 'How are you doing', 'Good to see you', 'Long time no see', 'It\’s been a while']
         peopleAtHome = []
         for member in itemRegistry.getItem('G_Presence_Family').getAllMembers():
             if member.state.toString() == 'OPEN': peopleAtHome.append(member.label)
