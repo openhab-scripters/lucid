@@ -4,7 +4,6 @@ from lucid.utils import PRIO, getItemValue
 import lucid.config as config
 
 from lucid.log import logging, LOG_PREFIX
-import org.joda.time.DateTime as DateTime
 
 def tts(ttsSay, ttsPrio=PRIO['MODERATE'], **keywords):
     '''
