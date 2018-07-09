@@ -1,5 +1,5 @@
 import os
-import lucid.config as lucidconfig
+import lucid.config as config
 
 def autoremote(message, ttl=300, sender='openHAB'):
     '''
@@ -8,8 +8,8 @@ def autoremote(message, ttl=300, sender='openHAB'):
 
     # Use GCM Server for delivery
     cmd = 'curl -s -G "https://autoremotejoaomgcd.appspot.com/sendmessage" ' \
-        + '--data-urlencode "key='+lucidconfig.autoremote['key']+'" ' \
-        + '--data-urlencode "password='+lucidconfig.autoremote['password']+'" ' \
+        + '--data-urlencode "key='+config.autoremote['key']+'" ' \
+        + '--data-urlencode "password='+config.autoremote['password']+'" ' \
         + '--data-urlencode "message='+message+'" ' \
         + '--data-urlencode "sender='+sender+'" ' \
         + '--data-urlencode "ttl='+str(ttl)+'" ' \

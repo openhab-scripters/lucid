@@ -18,14 +18,27 @@ EXTRA_JAVA_OPTS=-Xbootclasspath/a:/home/pi/jython2.7.0/jython.jar \
 ```
 The last line in the example above defines the path where openHAB can find your jython library files. You might have choosen a different directory for your installation. We will now simply refer to that directory as the **LIB-DIR**. It's the directory where openHAB will look for your jython library files.
 
-* Download the [lucid zip file](https://github.com/OH-Jython-Scripters/lucid/archive/master.zip), extract it in a temporary location and transfer the [lucid](https://github.com/OH-Jython-Scripters/lucid/tree/master/automation/lib/python/lucid) folder together with all its content (found in the zip file's automation/lib/python folder) into your LIB-DIR. 
+* Download the [lucid archive file](https://github.com/OH-Jython-Scripters/lucid/archive/master.zip), extract it in a temporary location and transfer the [lucid](https://github.com/OH-Jython-Scripters/lucid/tree/master/automation/lib/python/lucid) folder together with all its content (found in the zip file's automation/lib/python folder) into your LIB-DIR. 
 * Change the owner, group and file permissions. E.g. cd into the LIB-DIR. and run `sudo chown -R openhab:openhab lucid` followed by `sudo chmod -R 664 lucid`
+
+* You'd probably want to configure logging for lucid in the config file for logging. See the [documentation](https://www.openhab.org/docs/administration/logging.html#config-file). In the `OSGi appender` section, after line `log4j2.logger.org_eclipse_smarthome_automation.name = org.eclipse.smarthome.automation`, add
+```
+log4j2.logger.lucid.level = DEBUG
+log4j2.logger.lucid.name = lucid
+```
 
 * Put the demo.py file in your `automation/jsr223` directory and watch the openHAB log file carefully.
 
-* Optional. For some functionality, like the ability to send autoremote messages for example, there is some configuration to do. In LIB-DIR/lucid, rename the file example_config.py to config.py and edit that file to suit your needs. It should be quite self explanatory what it's all about.
+## Configuration file
+* Optional. For some functionality, like the ability to send autoremote messages for example, there is some configuration to do. In LIB-DIR/lucid, rename the file example_config.py to config.py and edit the file to suit your needs. It should be quite self explanatory what it's all about. The configuration file can be used to store config entries for all your jython scripts. You can use it like this:
+```
+import lucid.config as config
+if (config.somerandomdata['anumber'] == 0):
+    # Do something
+```
 
-* You are now ready to make your own scripts based on lucid. Have a look at the examples.
+## Example scripts
+* You are now ready to make your own scripts using lucid. Have a look at the examples.
 
 ## openHAB Jython Scripting on Slack
 OH-Jython-Scripters now has a Slack channel! It will help us to make sense of our work, and drive our efforts in Jython scripting forward. So if you are just curious, got questions, need support or just like to hang around, do not hesitate, join [**openHAB Jython Scripting on Slack**](https://join.slack.com/t/besynnerlig/shared_invite/enQtMzI3NzIyNTAzMjM1LTdmOGRhOTAwMmIwZWQ0MTNiZTU0MTY0MDk3OTVkYmYxYjE4NDE4MjcxMjg1YzAzNTJmZDM3NzJkYWU2ZDkwZmY) <--- Click link!

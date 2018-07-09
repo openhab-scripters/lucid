@@ -4,7 +4,7 @@ import traceback
 
 from org.apache.logging.log4j import Logger, LogManager
 
-LOG_PREFIX = "sboh2j"
+LOG_PREFIX = "lucid"
 
 def log_traceback(fn):
     """Decorator to provide better Jython stack traces"""
