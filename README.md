@@ -21,7 +21,7 @@ The last line in the example above defines the path where openHAB can find your 
 * Download the [lucid archive file](https://github.com/OH-Jython-Scripters/lucid/archive/master.zip), extract it in a temporary location and transfer the [lucid](https://github.com/OH-Jython-Scripters/lucid/tree/master/automation/lib/python/lucid) folder together with all its content (found in the zip file's automation/lib/python folder) into your LIB-DIR. 
 * Change the owner, group and file permissions. E.g. cd into the LIB-DIR. and run `sudo chown -R openhab:openhab lucid` followed by `sudo chmod -R 664 lucid`
 
-* You'd probably want to configure logging for lucid in the config file for logging. See the [documentation](https://www.openhab.org/docs/administration/logging.html#config-file). In the `OSGi appender` section, after line `log4j2.logger.org_eclipse_smarthome_automation.name = org.eclipse.smarthome.automation`, add
+* You'd probably want to configure logging for lucid in the config file for logging. The config file for logging is org.ops4j.pax.logging.cfg located in the userdata/etc folder (manual setup) or in /var/lib/openhab2/etc (apt/deb-based setup). See the [documentation](https://www.openhab.org/docs/administration/logging.html#config-file). In the `OSGi appender` section, after line `log4j2.logger.org_eclipse_smarthome_automation.name = org.eclipse.smarthome.automation`, add
 ```
 log4j2.logger.lucid.level = DEBUG
 log4j2.logger.lucid.name = lucid
