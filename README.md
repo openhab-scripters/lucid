@@ -27,10 +27,10 @@ log4j2.logger.lucid.level = DEBUG
 log4j2.logger.lucid.name = lucid
 ```
 
-* Put the demo.py file in your `automation/jsr223` directory and watch the openHAB log file carefully.
+* Put the [helloWorld.py](https://raw.githubusercontent.com/OH-Jython-Scripters/lucid/master/Script%20Examples/helloWorld.py) file from the examples in your `automation/jsr223` directory and watch the openHAB log file carefully. It should output "Hello world from lucid!" once every minute. Delete the file when you are done.
 
 ## Configuration file
-* Optional. For some functionality, like the ability to send autoremote messages for example, there is some configuration to do. In LIB-DIR/lucid, rename the file example_config.py to config.py and edit the file to suit your needs. It should be quite self explanatory what it's all about. The configuration file can be used to store config entries for all your jython scripts. You can use it like this:
+* For some functionality, like the ability to send autoremote messages for example, there is some configuration to do. In LIB-DIR/lucid, rename the file example_config.py to config.py and edit the file to suit your needs. It should be quite self explanatory what it's all about. The configuration file can be used to store config entries for all your jython scripts. You can use it like this:
 ```
 import lucid.config as config
 if (config.somerandomdata['anumber'] == 0):
@@ -38,7 +38,7 @@ if (config.somerandomdata['anumber'] == 0):
 ```
 
 ## Example scripts
-* You are now ready to make your own scripts using lucid. Have a look at the examples.
+* You are now ready to make your own scripts using lucid. Have a look at the [examples](https://github.com/OH-Jython-Scripters/lucid/tree/master/Script%20Examples).
 
 ## openHAB Jython Scripting on Slack
 OH-Jython-Scripters now has a Slack channel! It will help us to make sense of our work, and drive our efforts in Jython scripting forward. So if you are just curious, got questions, need support or just like to hang around, do not hesitate, join [**openHAB Jython Scripting on Slack**](https://join.slack.com/t/besynnerlig/shared_invite/enQtMzI3NzIyNTAzMjM1LTdmOGRhOTAwMmIwZWQ0MTNiZTU0MTY0MDk3OTVkYmYxYjE4NDE4MjcxMjg1YzAzNTJmZDM3NzJkYWU2ZDkwZmY) <--- Click link!
