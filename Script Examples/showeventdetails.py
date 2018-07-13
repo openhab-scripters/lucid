@@ -7,6 +7,7 @@
 from lucid.rules import rule, addRule
 from lucid.triggers import ItemStateUpdateTrigger, CronTrigger
 from lucid.utils import getEvent
+from logging import DEBUG, INFO, WARNING, ERROR
 
 @rule
 class ShowSomeEventInfo(object):
