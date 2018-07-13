@@ -146,9 +146,9 @@ You may also use [CronMaker](http://www.cronmaker.com/) or the generator at [Fre
 #### System-based Triggers
 A single system-based trigger is provided by **lucid**.
 
-**System started**. System started is triggered upon openHAB startup, after the rule file containing the System started trigger is modified, or after item(s) related to that rule file are modified in a .items file.
+* System started. System started is triggered upon openHAB startup, after the rule file containing the System started trigger is modified, or after item(s) related to that rule file are modified in a .items file.
 
-**System shuts down** isn't yet implemented.
+* System shuts down isn't yet implemented.
 
 Example:
 
