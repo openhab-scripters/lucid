@@ -19,6 +19,7 @@
         - [Thing-based Triggers](#thing-based-triggers)
         - [Channel-based Triggers](#channel-based-triggers)
     - [Events](#events)
+- [Loading and reloading the Jython rule binding](#loading-and-reloading-the-jython-rule-binding)
 - [Contributing](#contributing)
     - [Native english speakers](#native-english-speakers)
     - [openHAB Jython Scripting on Slack](#openhab-jython-scripting-on-slack)
@@ -182,6 +183,17 @@ ChannelEventTrigger('astro:sun:local:civilDusk#event','END'),
 
 ### Events
 Some useful text will soon be found here.
+
+## Loading and reloading the Jython rule binding
+To restart the Jython binding and reload all the Jython libs & scripts, [Access the console](https://www.openhab.org/docs/administration/console.html) and isse the following command:
+```
+bundle:restart org.eclipse.smarthome.automation.module.script.rulesupport
+```
+
+To make sure that the Jython rule binding binding is loaded as after all the items are initialized, (This has to be done after every OpenHAB2 update) [Access the console](https://www.openhab.org/docs/administration/console.html) and isse the following command:
+```
+bundle:start-level org.eclipse.smarthome.automation.module.script.rulesupport 90
+```
 
 ## Contributing
 There are several ways to contribute to this project.
