@@ -13,6 +13,6 @@ def autoremote(message, ttl=300, sender='openHAB'):
         + '--data-urlencode "message='+message+'" ' \
         + '--data-urlencode "sender='+sender+'" ' \
         + '--data-urlencode "ttl='+str(ttl)+'" ' \
-        + ' > /dev/null'
+        + ' 1>/dev/null 2>&1 &'
 
     os.system(cmd)
