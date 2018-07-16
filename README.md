@@ -35,6 +35,7 @@ These instructions will get you **lucid** up and running on your openHAB server.
 
 - [openHAB](https://docs.openhab.org/index.html) version **2.3** or later
 - The [Experimental Next-Gen Rule Engine](https://www.openhab.org/docs/configuration/rules-ng.html) add-on must be installed in openHAB 2.
+- openHAB should be configured to use a [persistence service](https://www.openhab.org/docs/configuration/persistence.html).
 
 ### Installing
 
