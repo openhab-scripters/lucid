@@ -1,9 +1,14 @@
-# This scripts speaks a random greeting every minute on your Sonos speaker system.
-#
-# Please see: https://github.com/OH-Jython-Scripters/lucid/blob/master/README.md
-#
-# It assumes that you've set up an openHAB a contact items to represent the presence of
-# persons to be greeted. Each item should belong to the item group "G_Presence_Family"
+'''
+This scripts speaks a random greeting every minute on your Sonos speaker system.
+
+Please see: https://github.com/OH-Jython-Scripters/lucid/blob/master/README.md
+
+To use this, you should set up astro.py as described
+here https://github.com/OH-Jython-Scripters/lucid/blob/master/Script%20Examples/astro.py
+
+It also assumes that you've set up an openHAB a contact items to represent the presence of
+persons to be greeted. Each item should belong to the item group "G_Presence_Family"
+'''
 
 from lucid.rules import rule, addRule
 from lucid.triggers import CronTrigger
