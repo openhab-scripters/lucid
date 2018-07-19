@@ -223,6 +223,9 @@ def pronounce(word):
         return word
 
 def greeting():
+    # To use this, you should set up astro.py as described
+    # here https://github.com/OH-Jython-Scripters/lucid/blob/master/Script%20Examples/astro.py
+    # It will take care of updating the item 'V_TimeOfDay' for you
     timeOfDay = getItemValue('V_TimeOfDay', TIMEOFDAY['DAY'])
     if timeOfDay in config.greeting:
         return config.greeting[timeOfDay]
