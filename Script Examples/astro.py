@@ -48,8 +48,8 @@ class TimeOfDayCalc(object):
         ]
 
     def execute(self, modules, inputs):
-        #self.log.setLevel(INFO)
-        self.log.setLevel(DEBUG)
+        self.log.setLevel(INFO)
+        #self.log.setLevel(DEBUG)
 
         # Get the time period start times for today
         now = DateTime()
@@ -85,8 +85,8 @@ class AstroChannelRule(object):
         ]
 
     def execute(self, modules, inputs):
-        #self.log.setLevel(INFO)
-        self.log.setLevel(DEBUG)
+        self.log.setLevel(INFO)
+        #self.log.setLevel(DEBUG)
         dawn_start = ir.get('V_CivilDawn').getState().calendar.timeInMillis
         day_start = ir.get('V_Sunrise').getState().calendar.timeInMillis
         dusk_start = ir.get('V_CivilDuskStart').getState().calendar.timeInMillis
