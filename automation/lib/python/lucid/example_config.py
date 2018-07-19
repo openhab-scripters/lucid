@@ -1,8 +1,19 @@
 # -*- coding: utf-8 -*-
-# lucid config file
-# Note! If you make any changes to this file, your script must reload this library
+'''
+lucid config file
+Note! If you make any changes to this file, your script must reload this library
+See: https://github.com/OH-Jython-Scripters/lucid#loading-and-reloading-the-jython-rule-binding
 
-# Rename this file to config.py and edit it to suit your needs
+Rename this file to config.py and edit it to suit your needs
+'''
+
+# Define at what time of day you want morning, day,evening and night to start
+timeofday = {
+    'morningStart': {'Hour': 7, 'Minute': 0},
+    'dayStart': {'Hour': 8, 'Minute': 0},
+    'eveningStart': {'Hour': 18, 'Minute': 0},
+    'nightStart': {'Hour': 22, 'Minute': 30}
+}
 
 autoremote = {
     'password': 'secret',

@@ -11,10 +11,16 @@ This topic by Rich Koshak might also be of interest: https://community.openhab.o
 Prerequisits:
 =============================
 - Astro binding installed.
+
 - Download to openHAB maps directory: en_timeofday.map and en_solartime.map
   From https://github.com/OH-Jython-Scripters/lucid/tree/master/transform
+
 - Persistence set up. The item group named G_PersistOnChange is persisted on change
-- Items as defined below. 
+
+- In the lucid config file, configure at what time morning, day, evening and night starts,
+  have a look at https://github.com/OH-Jython-Scripters/lucid/blob/master/automation/lib/python/lucid/example_config.py
+
+- Items as defined below. (You may use other names but then you'll get extra work every time you update the script.)
 
 Group G_PersistOnChange // Set up for persistence on change and system start up
 Number V_SolarTime "Solar time of day [MAP(en_solartime.map):%s]" <sun> (G_PersistOnChange)
@@ -32,18 +38,21 @@ from logging import DEBUG, INFO, WARNING, ERROR
 from lucid.rules import rule, addRule
 from lucid.triggers import ChannelEventTrigger, StartupTrigger, CronTrigger
 from lucid.utils import postUpdateCheckFirst, SOLARTIME, TIMEOFDAY, kw
+import lucid.config as config
 import time
 import org.joda.time.DateTime as DateTime
 
 @rule
 class TimeOfDayCalc(object):
-    """Regardless of the sun, this rule determines what is day and night"""
+    """
+    Regardless of the sun, this rule determines what is day and night
+    """
     def getEventTriggers(self):
         return [
-            CronTrigger('9 0 7 * * ?'), # E.g. 07:00:09 in morning
-            CronTrigger('9 0 8 * * ?'),
-            CronTrigger('9 0 18 * * ?'),
-            CronTrigger('9 30 22 * * ?'),
+            CronTrigger('9 ' + str(config.timeofday['morningStart']['Minute']) + ' ' + str(config.timeofday['morningStart']['Hour']) + ' * * ?'), # E.g. 9 seconds after morning starts
+            CronTrigger('9 ' + str(config.timeofday['dayStart']['Minute']) + ' ' + str(config.timeofday['dayStart']['Hour']) + ' * * ?'), # E.g. 9 seconds after day starts
+            CronTrigger('9 ' + str(config.timeofday['eveningStart']['Minute']) + ' ' + str(config.timeofday['eveningStart']['Hour']) + ' * * ?'), # E.g. 9 seconds after evening starts
+            CronTrigger('9 ' + str(config.timeofday['nightStart']['Minute']) + ' ' + str(config.timeofday['nightStart']['Hour']) + ' * * ?'), # E.g. 9 seconds after night starts
             StartupTrigger()
         ]
 
@@ -53,10 +62,10 @@ class TimeOfDayCalc(object):
 
         # Get the time period start times for today
         now = DateTime()
-        morningStart = now.withTimeAtStartOfDay().plusHours(7).toInstant()
-        dayStart = now.withTimeAtStartOfDay().plusHours(8).toInstant()
-        eveningStart = now.withTimeAtStartOfDay().plusHours(18).toInstant()
-        nightStart   = now.withTimeAtStartOfDay().plusHours(22).plusMinutes(30).toInstant()
+        morningStart = now.withTimeAtStartOfDay().plusHours(config.timeofday['morningStart']['Hour']).plusMinutes(config.timeofday['morningStart']['Minute']).toInstant()
+        dayStart = now.withTimeAtStartOfDay().plusHours(config.timeofday['dayStart']['Hour']).plusMinutes(config.timeofday['dayStart']['Minute']).toInstant()
+        eveningStart = now.withTimeAtStartOfDay().plusHours(config.timeofday['eveningStart']['Hour']).plusMinutes(config.timeofday['eveningStart']['Minute']).toInstant()
+        nightStart   = now.withTimeAtStartOfDay().plusHours(config.timeofday['nightStart']['Hour']).plusMinutes(config.timeofday['nightStart']['Minute']).toInstant()
 
         timeofday = TIMEOFDAY['NIGHT']
         if (now.isAfter(morningStart) and now.isBefore(dayStart)):
