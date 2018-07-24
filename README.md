@@ -150,6 +150,26 @@ For more information see the [Quartz documentation](http://www.quartz-scheduler.
 
 You may also use [CronMaker](http://www.cronmaker.com/) or the generator at [FreeFormatter.com](http://www.freeformatter.com/cron-expression-generator-quartz.html) to generate cron expressions.
 
+For your convenience there is a set of predefined cron expression constants available within the scope of the getEventTriggers function:
+
+* `EVERY_10_SECONDS`
+* `EVERY_15_SECONDS`
+* `EVERY_30_SECONDS`
+* `EVERY_MINUTE`
+* `EVERY_OTHER_MINUTE`
+* `EVERY_10_MINUTES`
+* `EVERY_30_MINUTES`
+* `EVERY_HOUR`
+* `EVERY_6_HOURS`
+* `EVERY_DAY_AT_NOON`
+
+You don't need to specifically import these cron expression string constants. Just use them like:
+
+```python
+CronTrigger(EVERY_HOUR), # Runs every minute
+CronTrigger(EVERY_DAY_AT_NOON), # Runs at 09:11:03 every day
+```
+
 #### System-based Triggers
 A single system-based trigger is provided by **lucid**.
 
