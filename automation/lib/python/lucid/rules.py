@@ -153,16 +153,20 @@ def wrap_getEventTriggers(fn):
         g['OFF'] = str(OFF)
         g['OPEN'] = str(OPEN)
         g['CLOSED'] = str(CLOSED)
-        g['EVERY_10_SECONDS'] = "0/10 * * * * ?"
-        g['EVERY_15_SECONDS'] = "0/15 * * * * ?"
-        g['EVERY_30_SECONDS'] = "0/30 * * * * ?"
-        g['EVERY_MINUTE'] = "0 0/1 * 1/1 * ? *"
-        g['EVERY_OTHER_MINUTE'] = "0 0/2 * 1/1 * ? *"
-        g['EVERY_10_MINUTES'] = "0 0/10 * 1/1 * ? *"
-        g['EVERY_30_MINUTES'] = "0 0/30 * 1/1 * ? *"
-        g['EVERY_HOUR'] = "0 0 0/1 1/1 * ? *"
-        g['EVERY_6_HOURS'] = "0 0 0/6 1/1 * ? *"
-        g['EVERY_DAY_AT_NOON'] = "0 0 12 1/1 * ? *"
+        g['EVERY_10_SECONDS'] = str(int(round(0.5+random.uniform(1, 9))))+"/10 * * * * ?"
+        g['EVERY_15_SECONDS'] = str(int(round(0.5+random.uniform(1, 14))))+"/15 * * * * ?"
+        g['EVERY_30_SECONDS'] = str(int(round(0.5+random.uniform(1, 29))))+"/30 * * * * ?"
+        g['EVERY_MINUTE'] = str(int(round(0.5+random.uniform(3, 57))))+" 0/1 * 1/1 * ? *"
+        g['EVERY_MINUTE_A'] = str(int(round(0.5+random.uniform(3, 57))))+" 0/1 * 1/1 * ? *"
+        g['EVERY_MINUTE_B'] = str(int(round(0.5+random.uniform(3, 57))))+" 0/1 * 1/1 * ? *"
+        g['EVERY_OTHER_MINUTE'] = str(int(round(0.5+random.uniform(3, 57))))+" 0/2 * 1/1 * ? *"
+        g['EVERY_10_MINUTES'] = str(int(round(0.5+random.uniform(3, 57))))+" "+str(int(round(0.5+random.uniform(1, 9))))+"/10 * 1/1 * ? *"
+        g['EVERY_30_MINUTES'] = str(int(round(0.5+random.uniform(3, 57))))+" "+str(int(round(0.5+random.uniform(1, 29))))+"/30 * 1/1 * ? *"
+        g['EVERY_HOUR'] = str(int(round(0.5+random.uniform(3, 57))))+" "+str(int(round(0.5+random.uniform(3, 57))))+" 0/1 1/1 * ? *"
+        g['EVERY_HOUR_A'] = str(int(round(0.5+random.uniform(3, 57))))+" "+str(int(round(0.5+random.uniform(3, 57))))+" 0/1 1/1 * ? *"
+        g['EVERY_HOUR_B'] = str(int(round(0.5+random.uniform(3, 57))))+" "+str(int(round(0.5+random.uniform(3, 57))))+" 0/1 1/1 * ? *"
+        g['EVERY_6_HOURS'] = str(int(round(0.5+random.uniform(3, 57))))+" "+str(int(round(0.5+random.uniform(3, 57))))+" 0/6 1/1 * ? *"
+        g['EVERY_DAY_AT_NOON'] = str(int(round(0.5+random.uniform(3, 57))))+" "+str(int(round(0.5+random.uniform(3, 57))))+" 12 1/1 * ? *"
 
         return fn()
     return wrapper

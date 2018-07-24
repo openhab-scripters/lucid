@@ -1,4 +1,4 @@
-# lucid v1.0.0 <!-- omit in toc -->
+# lucid v1.1.0 <!-- omit in toc -->
 
 **lucid** is an openHAB jsr223 Jython helper library. It's a derivative work based on [Steve Bate](https://github.com/steve-bate)'s great project [openHab2-jython](https://github.com/OH-Jython-Scripters/openhab2-jython).
 
@@ -156,18 +156,24 @@ For your convenience there is a set of predefined cron expression constants avai
 * `EVERY_15_SECONDS`
 * `EVERY_30_SECONDS`
 * `EVERY_MINUTE`
+* `EVERY_MINUTE_A`
+* `EVERY_MINUTE_B`
 * `EVERY_OTHER_MINUTE`
 * `EVERY_10_MINUTES`
 * `EVERY_30_MINUTES`
 * `EVERY_HOUR`
+* `EVERY_HOUR_A`
+* `EVERY_HOUR_B`
 * `EVERY_6_HOURS`
-* `EVERY_DAY_AT_NOON`
+* `EVERY_DAY_AT_NOON` Note that this will trigger at a every day "around noon" between 11:03 AM and 12:57 AM.
+
+**NOTE!!** To avoid the "top of the minute problem" we space out our cronjobs (only those that are using predefined cron expressions) not to occur exactly on the minute or at the top of the hour. That will help your own server as well as shared resources that you'll be using to spread out the work more evenly. Each of the above predefined cron expressions will be randomized at openHAB reload. The `EVERY_HOUR` expression might for example be randomized to occur at *second :19, every 30 minutes starting at minute :26, every hour* It will still run once an hour but using the expressons above you can not be certail exactly when. If you want to run a cron expression hourly at minute 0 and second 0 you should not use the predfined cron expressions.
 
 You don't need to specifically import these cron expression string constants. Just use them like:
 
 ```python
-CronTrigger(EVERY_HOUR), # Runs every hour
-CronTrigger(EVERY_DAY_AT_NOON), # Runs every day at noon
+CronTrigger(EVERY_HOUR), # Runs every hour but not on the minute 00
+CronTrigger(EVERY_DAY_AT_NOON), # Runs every day around noon +- 1 hour
 ```
 
 #### System-based Triggers
