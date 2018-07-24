@@ -6,8 +6,6 @@
 
 from lucid.rules import rule, addRule
 from lucid.triggers import ItemStateUpdateTrigger, CronTrigger
-from lucid.utils import getEvent
-from logging import DEBUG, INFO, WARNING, ERROR
 
 @rule
 class ShowSomeEventInfo(object):
@@ -19,15 +17,14 @@ class ShowSomeEventInfo(object):
 
     def execute(self, modules, inputs):
         self.log.setLevel(DEBUG)
-        event = getEvent(inputs)
-        if event.isItem:
-            self.log.debug('Triggering item name: \'' + unicode(event.itemName) + '\', state: ' + str(event.state))
-            item = event.item # Get the item object for item that caused the event
-            self.log.debug('item: ' + unicode(item.name) + ' isActive(): ' + str(event.isActive))
+        if self.event.isItem:
+            self.log.debug('Triggering item name: \'' + unicode(self.event.itemName) + '\', state: ' + str(self.event.state))
+            item = self.event.item # Get the item object for item that caused the event
+            self.log.debug('item: ' + unicode(item.name) + ' isActive(): ' + str(self.event.isActive))
             self.log.debug('item: ' + unicode(item.name) + ' has a new state: ' + str(item.state))
-        self.log.debug('event type: ' + event.type)
-        self.log.debug('This was a cron event: ' + str(event.isCron))
-        self.log.debug('This was a command event: ' + str(event.isCommand))
-        self.log.debug('This was an update event: ' + str(event.isUpdate))
+        self.log.debug('event type: ' + self.event.type)
+        self.log.debug('This was a cron event: ' + str(self.event.isCron))
+        self.log.debug('This was a command event: ' + str(self.event.isCommand))
+        self.log.debug('This was an update event: ' + str(self.event.isUpdate))
 
 addRule(ShowSomeEventInfo())

@@ -1,4 +1,4 @@
-# lucid <!-- omit in toc --> 
+# lucid V 1.0.0 <!-- omit in toc --> 
 
 **lucid** is an openHAB jsr223 Jython helper library. It's a derivative work based on [Steve Bate](https://github.com/steve-bate)'s great project [openHab2-jython](https://github.com/OH-Jython-Scripters/openhab2-jython).
 
@@ -67,10 +67,10 @@ You'd probably want to configure logging for lucid in the config file for loggin
 Put the [helloWorld.py](https://raw.githubusercontent.com/OH-Jython-Scripters/lucid/master/Script%20Examples/helloWorld.py) file from the examples in your `automation/jsr223` directory and watch the openHAB log file carefully. It should output "Hello world from lucid!" once every minute. Delete the `helloWorld.py` file when you are done.
 
 ### Configuration file
-For some functionality, like the ability to send autoremote messages for example, there is some configuration to do. In LIB-DIR/lucid, rename the file example_config.py to config.py and edit the file to suit your needs. It should be quite self explanatory what it's all about. The configuration file can be used to store config entries for all your jython scripts. You can use it like this:
+For some functionality, like the ability to send autoremote messages for example, there is some configuration to do. In LIB-DIR/lucid, rename the file example_config.py to config.py and edit the file to suit your needs. It should be quite self explanatory what it's all about. The configuration file can also be used to store custom config entries for all your jython scripts. The configuration entries are
+available in the lucid rules that you define. 
 ```python
-import lucid.config as config
-if (config.somerandomdata['anumber'] == 0):
+if (self.config.somerandomdata['anumber'] == 0):
     # Do something
 ```
 

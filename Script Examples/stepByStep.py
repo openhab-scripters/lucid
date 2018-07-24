@@ -3,7 +3,6 @@
 
 from lucid.rules import rule, addRule # Needed for defining and adding a rule
 from lucid.triggers import ItemStateChangeTrigger # Import the different type of triggers that you will be using
-from logging import DEBUG, INFO, WARNING, ERROR # Importing a few constants needed for setting the debug level
 
 # First we add a rule that triggers upon the change of any of 2 switches.
 # To run this, you need to define 2 openHAB switch items and name them "My_TestSwitch_1" and "My_TestSwitch_2"
@@ -15,7 +14,7 @@ class StepByStep(object): # Giving the class a unique name
     def getEventTriggers(self):
         return [
             ItemStateChangeTrigger('My_TestSwitch_1'), # Triggering when the switch changes its state.
-            ItemStateChangeTrigger('My_TestSwitch_2', 'ON'), # Only trigger when switch turns on
+            ItemStateChangeTrigger('My_TestSwitch_2', ON), # Only trigger when switch turns on
         ]
 
     def execute(self, modules, inputs):

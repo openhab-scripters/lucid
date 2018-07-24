@@ -1,6 +1,5 @@
 from lucid.rules import rule, addRule
 from lucid.triggers import ItemStateUpdateTrigger
-from lucid.utils import getEvent
 from lucid.speak import tts
 
 @rule
@@ -14,6 +13,5 @@ class SpeakThisPhrase(object):
     def getEventTriggers(self):
         return [ItemStateUpdateTrigger('Speak_This')]
     def execute(self, modules, inputs):
-        event = getEvent(inputs)
-        tts(event.state)
+        tts(self.event.state)
 addRule(SpeakThisPhrase())

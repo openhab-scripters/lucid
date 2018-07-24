@@ -2,8 +2,10 @@ from org.eclipse.smarthome.core.library.types import PercentType
 from lucid.actions import Audio
 from lucid.utils import PRIO, getItemValue
 import lucid.config as config
+from org.eclipse.smarthome.core.library.types import OnOffType
 
 from lucid.log import logging, LOG_PREFIX
+ON = OnOffType.ON
 
 def playsound(fileName, ttsPrio=PRIO['MODERATE'], **keywords):
     '''
@@ -27,8 +29,8 @@ def playsound(fileName, ttsPrio=PRIO['MODERATE'], **keywords):
                 return the_key
         return 'All'
 
-    if ((getItemValue('Sonos_Allow_TTS_And_Sounds', 'ON') != 'ON') and (ttsPrio <= PRIO['MODERATE'])):
-        log.info("Item Sonos_Allow_TTS_And_Sounds is OFF and ttsPrio is to low to play sound \'" + fileName + "\' at this moment.")
+    if ((getItemValue(config.customItemNames['allowTTSSwitch'], ON) != ON) and (ttsPrio <= PRIO['MODERATE'])):
+        log.info(unicode(config.customItemNames['allowTTSSwitch']) + " is OFF and ttsPrio is to low to play sound \'" + fileName + "\' at this moment.")
         return False
 
     room = getDefaultRoom() if 'room' not in keywords else keywords['room']

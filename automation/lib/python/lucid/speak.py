@@ -2,8 +2,10 @@ from org.eclipse.smarthome.core.library.types import PercentType
 from lucid.actions import Voice
 from lucid.utils import PRIO, getItemValue
 import lucid.config as config
+from org.eclipse.smarthome.core.library.types import OnOffType
 
 from lucid.log import logging, LOG_PREFIX
+ON = OnOffType.ON
 
 def tts(ttsSay, ttsPrio=PRIO['MODERATE'], **keywords):
     '''
@@ -27,7 +29,7 @@ def tts(ttsSay, ttsPrio=PRIO['MODERATE'], **keywords):
                 return the_key
         return 'All'
 
-    if ((getItemValue('Sonos_Allow_TTS_And_Sounds', 'ON') != 'ON') and (ttsPrio <= PRIO['MODERATE'])):
+    if ((getItemValue('Sonos_Allow_TTS_And_Sounds', ON) != ON) and (ttsPrio <= PRIO['MODERATE'])):
         log.info("Item Sonos_Allow_TTS_And_Sounds is OFF and ttsPrio is to low to speak \'" + ttsSay + "\' at this moment.")
         return False
 

@@ -12,19 +12,19 @@ Prerequisits:
 =============================
 - Astro binding installed.
 
-- Download to openHAB maps directory: en_timeofday.map and en_solartime.map
+- Download to openHAB maps directory: en_timeOfDay.map and en_solartime.map
   From https://github.com/OH-Jython-Scripters/lucid/tree/master/transform
 
 - Persistence set up. The item group named G_PersistOnChange is persisted on change
 
 - In the lucid config file, configure at what time morning, day, evening and night starts,
-  have a look at https://github.com/OH-Jython-Scripters/lucid/blob/master/automation/lib/python/lucid/example_config.py
+  have a look at https://github.com/OH-Jython-Scripters/lucid/blob/master/automation/lib/python/lucid/example_self.config.py
 
 - Items as defined below. (You may use other names but then you'll get extra work every time you update the script.)
 
 Group G_PersistOnChange // Set up for persistence on change and system start up
 Number V_SolarTime "Solar time of day [MAP(en_solartime.map):%s]" <sun> (G_PersistOnChange)
-Number V_TimeOfDay "Time of day [MAP(en_timeofday.map):%s]" <sun> (G_PersistOnChange)
+Number V_TimeOfDay "Time of day [MAP(en_timeOfDay.map):%s]" <sun> (G_PersistOnChange)
 Number Sun_Position_Azimuth "Sun azimuth" <sun> {channel="astro:sun:local:position#azimuth"}
 Number Sun_Position_Elevation "Sun elevation" <sun> {channel="astro:sun:local:position#elevation"}
 DateTime V_CivilDawn "Civil Dawn [%1$tH:%1$tM]" <flow> (G_PersistOnChange) {channel="astro:sun:local:civilDawn#start"}
@@ -34,11 +34,9 @@ DateTime V_CivilDuskStart "Civil dusk [%1$tH:%1$tM]" <flow> (G_PersistOnChange) 
 DateTime V_CivilDuskEnd "Nautical dusk [%1$tH:%1$tM]" <moon> (G_PersistOnChange) {channel="astro:sun:local:civilDusk#end"}
 '''
 
-from logging import DEBUG, INFO, WARNING, ERROR
 from lucid.rules import rule, addRule
 from lucid.triggers import ChannelEventTrigger, StartupTrigger, CronTrigger
 from lucid.utils import postUpdateCheckFirst, SOLARTIME, TIMEOFDAY, kw
-import lucid.config as config
 import time
 import org.joda.time.DateTime as DateTime
 
@@ -49,10 +47,10 @@ class TimeOfDayCalc(object):
     """
     def getEventTriggers(self):
         return [
-            CronTrigger('9 ' + str(config.timeofday['morningStart']['Minute']) + ' ' + str(config.timeofday['morningStart']['Hour']) + ' * * ?'), # E.g. 9 seconds after morning starts
-            CronTrigger('9 ' + str(config.timeofday['dayStart']['Minute']) + ' ' + str(config.timeofday['dayStart']['Hour']) + ' * * ?'), # E.g. 9 seconds after day starts
-            CronTrigger('9 ' + str(config.timeofday['eveningStart']['Minute']) + ' ' + str(config.timeofday['eveningStart']['Hour']) + ' * * ?'), # E.g. 9 seconds after evening starts
-            CronTrigger('9 ' + str(config.timeofday['nightStart']['Minute']) + ' ' + str(config.timeofday['nightStart']['Hour']) + ' * * ?'), # E.g. 9 seconds after night starts
+            CronTrigger('9 ' + str(self.config.timeOfDay['morningStart']['Minute']) + ' ' + str(self.config.timeOfDay['morningStart']['Hour']) + ' * * ?'), # E.g. 9 seconds after morning starts
+            CronTrigger('9 ' + str(self.config.timeOfDay['dayStart']['Minute']) + ' ' + str(self.config.timeOfDay['dayStart']['Hour']) + ' * * ?'), # E.g. 9 seconds after day starts
+            CronTrigger('9 ' + str(self.config.timeOfDay['eveningStart']['Minute']) + ' ' + str(self.config.timeOfDay['eveningStart']['Hour']) + ' * * ?'), # E.g. 9 seconds after evening starts
+            CronTrigger('9 ' + str(self.config.timeOfDay['nightStart']['Minute']) + ' ' + str(self.config.timeOfDay['nightStart']['Hour']) + ' * * ?'), # E.g. 9 seconds after night starts
             StartupTrigger()
         ]
 
@@ -62,21 +60,21 @@ class TimeOfDayCalc(object):
 
         # Get the time period start times for today
         now = DateTime()
-        morningStart = now.withTimeAtStartOfDay().plusHours(config.timeofday['morningStart']['Hour']).plusMinutes(config.timeofday['morningStart']['Minute']).toInstant()
-        dayStart = now.withTimeAtStartOfDay().plusHours(config.timeofday['dayStart']['Hour']).plusMinutes(config.timeofday['dayStart']['Minute']).toInstant()
-        eveningStart = now.withTimeAtStartOfDay().plusHours(config.timeofday['eveningStart']['Hour']).plusMinutes(config.timeofday['eveningStart']['Minute']).toInstant()
-        nightStart   = now.withTimeAtStartOfDay().plusHours(config.timeofday['nightStart']['Hour']).plusMinutes(config.timeofday['nightStart']['Minute']).toInstant()
+        morningStart = now.withTimeAtStartOfDay().plusHours(self.config.timeOfDay['morningStart']['Hour']).plusMinutes(self.config.timeOfDay['morningStart']['Minute']).toInstant()
+        dayStart = now.withTimeAtStartOfDay().plusHours(self.config.timeOfDay['dayStart']['Hour']).plusMinutes(self.config.timeOfDay['dayStart']['Minute']).toInstant()
+        eveningStart = now.withTimeAtStartOfDay().plusHours(self.config.timeOfDay['eveningStart']['Hour']).plusMinutes(self.config.timeOfDay['eveningStart']['Minute']).toInstant()
+        nightStart   = now.withTimeAtStartOfDay().plusHours(self.config.timeOfDay['nightStart']['Hour']).plusMinutes(self.config.timeOfDay['nightStart']['Minute']).toInstant()
 
-        timeofday = TIMEOFDAY['NIGHT']
+        timeOfDay = TIMEOFDAY['NIGHT']
         if (now.isAfter(morningStart) and now.isBefore(dayStart)):
-            timeofday = TIMEOFDAY['MORNING']
+            timeOfDay = TIMEOFDAY['MORNING']
         elif (now.isAfter(dayStart) and now.isBefore(eveningStart)):
-            timeofday = TIMEOFDAY['DAY']
+            timeOfDay = TIMEOFDAY['DAY']
         elif (now.isAfter(eveningStart) and now.isBefore(nightStart)):
-            timeofday = TIMEOFDAY['EVENING']
+            timeOfDay = TIMEOFDAY['EVENING']
 
-        if postUpdateCheckFirst('V_TimeOfDay', timeofday):
-            self.log.debug("Time of day now: " + kw(TIMEOFDAY, timeofday))
+        if postUpdateCheckFirst('V_TimeOfDay', timeOfDay):
+            self.log.debug("Time of day now: " + kw(TIMEOFDAY, timeOfDay))
 
 addRule(TimeOfDayCalc())
 

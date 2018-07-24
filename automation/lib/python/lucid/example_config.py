@@ -5,14 +5,29 @@ Note! If you make any changes to this file, your script must reload this library
 See: https://github.com/OH-Jython-Scripters/lucid#loading-and-reloading-the-jython-rule-binding
 
 Rename this file to config.py and edit it to suit your needs
+
+Some configuration items are mandatory, hence you should not remove them.
 '''
 
 # Define at what time of day you want morning, day,evening and night to start
-timeofday = {
+# Mandatory. Do not remove.
+timeOfDay = {
     'morningStart': {'Hour': 7, 'Minute': 0},
     'dayStart': {'Hour': 8, 'Minute': 0},
     'eveningStart': {'Hour': 18, 'Minute': 0},
     'nightStart': {'Hour': 22, 'Minute': 30}
+}
+
+# Mandatory. Do not remove.
+customItemNames = {
+    'sysLightLevel': 'Sys_LightLevel', # Item that holds daylight value in LUX
+    'reloadFinished': 'ZZZ_Test_Reload_Finished', # A persisted item that we use to check if releoad has finished
+    'allowTTSSwitch': 'Sonos_Allow_TTS_And_Sounds', # Switch item that must be ON to allow normal prio TTS and sounds to pass
+}
+
+# Mandatory. Do not remove.
+customGroupNames = {
+    'lockDevice': 'G_Lock', # Group Item name that you've assigned to all your door lock devices
 }
 
 autoremote = {
@@ -52,15 +67,20 @@ wunderground = {
         "solarradiation": 'XXXXXXXXX'
     }
 }
+
+# Mandatory. Do not remove.
 pronounce = {
     'Carlos': 'Carl'
 }
+
+# Mandatory. Do not remove.
 greeting = {
     0: 'Good night',
     1: 'Good morning',
     2: 'Good day',
     3: 'Good evening'
 }
+
 sonos = {
     'rooms': {
         'Kitchen': {

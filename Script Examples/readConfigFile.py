@@ -25,8 +25,6 @@
 
 from lucid.rules import rule, addRule
 from lucid.triggers import CronTrigger
-import lucid.config as config
-from logging import DEBUG, INFO, WARNING, ERROR
 
 @rule
 class readConfigExample(object):
@@ -37,12 +35,12 @@ class readConfigExample(object):
         self.log.setLevel(DEBUG) # Set the logging level to DEBUG
 
         # Get a single value:
-        sonsorName = config.wunderground['sensors']['tempc']
+        sonsorName = self.config.wunderground['sensors']['tempc']
         self.log.debug('Read sensorname from the lucid config file: ' + sonsorName)
 
         # wunderground['sensors'] is a dictionary. Let's iterate through it
         self.log.debug('Iterate through a dictionary in the lucid configuration file')
-        for the_key, the_value in config.wunderground['sensors'].iteritems():
+        for the_key, the_value in self.config.wunderground['sensors'].iteritems():
             self.log.debug('Key: ' + the_key + ', Value: ' + the_value)
 
 addRule(readConfigExample())
