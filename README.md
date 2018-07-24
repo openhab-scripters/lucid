@@ -14,7 +14,7 @@
     - [Imports](#imports)
     - [Triggers](#triggers)
         - [Event-based Triggers](#event-based-triggers)
-        - [Time-based Triggers](#time-based-triggers)
+        - [Time-based (cron) Triggers](#time-based-cron-triggers)
         - [System-based Triggers](#system-based-triggers)
         - [Thing-based Triggers](#thing-based-triggers)
         - [Channel-based Triggers](#channel-based-triggers)
@@ -129,7 +129,7 @@ ItemStateChangeTrigger('<item>', ['<state>']), # Item changed
 
 A simplistic explanation of the differences between command and update can be found in the article about [openHAB core actions](https://www.openhab.org/docs/configuration/actions.html#core-actions).
 
-#### Time-based Triggers
+#### Time-based (cron) Triggers
 **lucid** supports [cron expressions](http://www.quartz-scheduler.org/documentation/quartz-2.1.x/tutorials/tutorial-lesson-06).
 
 ```python
@@ -166,8 +166,8 @@ For your convenience there is a set of predefined cron expression constants avai
 You don't need to specifically import these cron expression string constants. Just use them like:
 
 ```python
-CronTrigger(EVERY_HOUR), # Runs every minute
-CronTrigger(EVERY_DAY_AT_NOON), # Runs at 09:11:03 every day
+CronTrigger(EVERY_HOUR), # Runs every hour
+CronTrigger(EVERY_DAY_AT_NOON), # Runs every day at noon
 ```
 
 #### System-based Triggers
