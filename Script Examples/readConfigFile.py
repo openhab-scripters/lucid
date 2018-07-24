@@ -29,7 +29,7 @@ from lucid.triggers import CronTrigger
 @rule
 class readConfigExample(object):
     def getEventTriggers(self):
-        return [CronTrigger('0 0/1 * 1/1 * ? *')] # Runs every minute
+        return [CronTrigger(EVERY_MINUTE)] # Runs every minute
     def execute(self, modules, inputs):
 
         self.log.setLevel(DEBUG) # Set the logging level to DEBUG

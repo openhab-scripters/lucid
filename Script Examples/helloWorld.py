@@ -5,7 +5,7 @@ from lucid.triggers import CronTrigger
 class HelloWorld(object):
     def getEventTriggers(self):
         return [
-            CronTrigger('0 0/1 * 1/1 * ? *'), # Runs every minute
+            CronTrigger(EVERY_MINUTE), # Runs every minute
         ]
 
     def execute(self, modules, inputs):

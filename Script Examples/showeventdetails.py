@@ -12,7 +12,7 @@ class ShowSomeEventInfo(object):
     def getEventTriggers(self):
         return [
             ItemStateUpdateTrigger('Button_Box_Sw_4'),
-            CronTrigger('0 0/1 * 1/1 * ? *'), # Runs every minute
+            CronTrigger(EVERY_MINUTE), # Runs every minute
         ]
 
     def execute(self, modules, inputs):
