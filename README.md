@@ -1,4 +1,4 @@
-# lucid v1.2.0 <!-- omit in toc -->
+# lucid v1.2.1 <!-- omit in toc -->
 
 **lucid** is an openHAB jsr223 Jython helper library. It's a derivative work based on [Steve Bate](https://github.com/steve-bate)'s great project [openHab2-jython](https://github.com/OH-Jython-Scripters/openhab2-jython).
 
