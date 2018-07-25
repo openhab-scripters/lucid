@@ -8,6 +8,7 @@ Rename this file to config.py and edit it to suit your needs
 
 Some configuration items are mandatory, hence you should not remove them.
 '''
+from logging import DEBUG, INFO, WARNING, ERROR
 
 # Define at what time of day you want morning, day,evening and night to start
 # Mandatory. Do not remove.
@@ -49,6 +50,7 @@ clickatell = {
 
 # Weather Underground Config
 wunderground = {
+    'logLevel': ERROR,
     'stationdata': {
         "weather_upload": True,
         "station_id": "XXXXXXX",

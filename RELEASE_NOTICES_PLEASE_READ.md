@@ -3,6 +3,9 @@ Below are important instructions if you are upgrading lucid from a previous vers
 
 **PLEASE MAKE SURE THAT YOU GO THROUGH ALL STEPS BELOW WHERE IT SAYS "BREAKING CHANGE", DON'T SKIP ANY VERSION**
 
+***Version 1.2.1***
+- Bug fixed. self.event.state was of string type for switches and contacts.
+
 ***Version 1.2.0***
 - **BREAKING CHANGE** Predefined cron expression `EVERY_DAY_AT_NOON` has been renamed to `EVERY_DAY_AROUND_NOON`.
 - Predefined cron expressions `EVERY_MINUTE_A`, `EVERY_MINUTE_B`, `EVERY_HOUR_A` and `EVERY_HOUR_B` have been removed since they are not needed.

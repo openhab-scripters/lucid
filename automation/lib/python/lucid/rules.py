@@ -97,7 +97,10 @@ class Event:
                 self.isCommand = True
             _attr = getattr(_state, 'intValue', None)
             _oldAttr = getattr(_oldState, 'intValue', None)
-            if type(_state) in [IncreaseDecreaseType, NextPreviousType, OnOffType, OpenClosedType, PlayPauseType, RewindFastforwardType, StopMoveType, UpDownType]:
+
+            if type(_state) in [OnOffType, OpenClosedType]:
+                self.state = _state
+            elif type(_state) in [IncreaseDecreaseType, NextPreviousType, PlayPauseType, RewindFastforwardType, StopMoveType, UpDownType]:
                 self.state = _state.toString()
             elif _attr is not None:
                 self.state = _state.floatValue() if '.' in str(_state) else _state.intValue()
@@ -105,7 +108,9 @@ class Event:
                 self.state = None
             else:
                 self.state = _state.toString()
-            if type(_oldState) in [IncreaseDecreaseType, NextPreviousType, OnOffType, OpenClosedType, PlayPauseType, RewindFastforwardType, StopMoveType, UpDownType]:
+            if type(_oldState) in [OnOffType, OpenClosedType]:
+                self.oldState = _oldState
+            elif type(_oldState) in [IncreaseDecreaseType, NextPreviousType, PlayPauseType, RewindFastforwardType, StopMoveType, UpDownType]:
                 self.oldState = _oldState.toString()
             elif _oldAttr is not None:
                 self.oldState = _oldState.floatValue() if '.' in str(_oldState) else _oldState.intValue()
