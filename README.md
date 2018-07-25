@@ -1,4 +1,4 @@
-# lucid v1.1.0 <!-- omit in toc -->
+# lucid v1.2.0 <!-- omit in toc -->
 
 **lucid** is an openHAB jsr223 Jython helper library. It's a derivative work based on [Steve Bate](https://github.com/steve-bate)'s great project [openHab2-jython](https://github.com/OH-Jython-Scripters/openhab2-jython).
 
@@ -133,8 +133,9 @@ A simplistic explanation of the differences between command and update can be fo
 **lucid** supports [cron expressions](http://www.quartz-scheduler.org/documentation/quartz-2.1.x/tutorials/tutorial-lesson-06).
 
 ```python
-CronTrigger('0 0/1 * 1/1 * ? *'), # Runs every minute
+CronTrigger(EVERY_MINUTE), # Using one of the predefined cron expression strings
 CronTrigger('3 11 09 * * ?'), # Runs at 09:11:03 every day
+CronTrigger(EVERY_15_MINUTES), # Using one of the predefined cron expression strings
 ```
 
 A cron expression takes the form of six or optionally seven fields:
@@ -156,16 +157,14 @@ For your convenience there is a set of predefined cron expression constants avai
 * `EVERY_15_SECONDS`
 * `EVERY_30_SECONDS`
 * `EVERY_MINUTE`
-* `EVERY_MINUTE_A`
-* `EVERY_MINUTE_B`
 * `EVERY_OTHER_MINUTE`
+* `EVERY_5_MINUTES`
 * `EVERY_10_MINUTES`
+* `EVERY_15_MINUTES`
 * `EVERY_30_MINUTES`
 * `EVERY_HOUR`
-* `EVERY_HOUR_A`
-* `EVERY_HOUR_B`
 * `EVERY_6_HOURS`
-* `EVERY_DAY_AT_NOON` Note that this will trigger at a every day "around noon" between 11:03 AM and 12:57 AM.
+* `EVERY_DAY_AROUND_NOON` Note that this will trigger at a every day "around noon" between 11:03 AM and 12:57 AM.
 
 **NOTE!!** To avoid the "top of the minute problem" we space out our cronjobs (only those that are using predefined cron expressions) not to occur exactly on the minute or at the top of the hour. That will help your own server as well as shared resources that you'll be using to spread out the work more evenly. Each of the above predefined cron expressions will be randomized at openHAB reload. The `EVERY_HOUR` expression might for example be randomized to occur at *second :19, minute 32 every hour* It will still run once an hour but using the expressons above you can not be certail exactly when. If you want to run a cron expression hourly at minute 0 and second 0 you should not use the predfined cron expressions.
 
@@ -173,7 +172,7 @@ You don't need to specifically import these cron expression string constants. Ju
 
 ```python
 CronTrigger(EVERY_HOUR), # Runs every hour but not on the minute 00
-CronTrigger(EVERY_DAY_AT_NOON), # Runs every day around noon +- 1 hour
+CronTrigger(EVERY_DAY_AROUND_NOON), # Runs every day around noon +- 1 hour
 ```
 
 #### System-based Triggers
