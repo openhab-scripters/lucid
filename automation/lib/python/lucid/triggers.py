@@ -54,6 +54,9 @@ class CronTrigger(Trigger):
                 }))
 
 class ItemEventTrigger(Trigger):
+    '''
+    (based on "core.GenericEventTrigger")
+    '''
     def __init__(self, eventSource, eventTypes, eventTopic="smarthome/items/*", triggerName=None):
         triggerName = triggerName or uuid.uuid1().hex
         Trigger.__init__(self, triggerName, "core.GenericEventTrigger", Configuration({

@@ -3,6 +3,13 @@ Below are important instructions if you are upgrading lucid from a previous vers
 
 **PLEASE MAKE SURE THAT YOU GO THROUGH ALL STEPS BELOW WHERE IT SAYS "BREAKING CHANGE", DON'T SKIP ANY VERSION**
 
+***Version 1.3.0***
+- Bug fixed (again). Channel event triggers do not have item name.
+- `event.isChannel` added.
+
+***Version 1.2.2***
+- Bug fixed. Channel event triggers do not have item name.
+
 ***Version 1.2.1***
 - Bug fixed. self.event.state was of string type for switches and contacts.
 

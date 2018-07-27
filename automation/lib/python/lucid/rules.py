@@ -70,6 +70,7 @@ class Event:
         self.isStartup = False
         self.isCommand = False
         self.isUpdate = False
+        self.isChannel = False
         self.itemName = None
         self.state = None
         self.isActive = None
@@ -79,14 +80,16 @@ class Event:
             self.type = 'Cron'
             self.isCron = True
         elif 'event' in inputs:
-            # Type can be 'ItemStateEvent', 'ItemStateChangedEvent' or 'ItemCommandEvent'
+            # Type can be 'ItemStateEvent', 'ItemStateChangedEvent', 'ItemCommandEvent' or 'ChannelTriggeredEvent'
             self.type = inputs['event'].getType()
+            if self.type == 'ChannelTriggeredEvent':
+                self.isChannel = True
         else:
             self.type = 'Startup'
             self.isStartup = True
         _event = inputs.get('event')
         if _event is not None:
-            self.itemName = _event.itemName
+            _state = None
             if 'getItemState' in dir(_event):
                 _state = _event.getItemState()
                 _oldState = _event.getOldItemState() if 'getOldItemState' in dir(_event) else None
@@ -95,32 +98,37 @@ class Event:
                 _state = _event.getItemCommand()
                 _oldState = None # object has no attribute 'getOldItemCommand'
                 self.isCommand = True
-            _attr = getattr(_state, 'intValue', None)
-            _oldAttr = getattr(_oldState, 'intValue', None)
+            if _state is not None:
+                _attr = getattr(_state, 'intValue', None)
+                _oldAttr = getattr(_oldState, 'intValue', None)
 
-            if type(_state) in [OnOffType, OpenClosedType]:
-                self.state = _state
-            elif type(_state) in [IncreaseDecreaseType, NextPreviousType, PlayPauseType, RewindFastforwardType, StopMoveType, UpDownType]:
-                self.state = _state.toString()
-            elif _attr is not None:
-                self.state = _state.floatValue() if '.' in str(_state) else _state.intValue()
-            elif str(type(_state)) == 'NoneType':
-                self.state = None
-            else:
-                self.state = _state.toString()
-            if type(_oldState) in [OnOffType, OpenClosedType]:
-                self.oldState = _oldState
-            elif type(_oldState) in [IncreaseDecreaseType, NextPreviousType, PlayPauseType, RewindFastforwardType, StopMoveType, UpDownType]:
-                self.oldState = _oldState.toString()
-            elif _oldAttr is not None:
-                self.oldState = _oldState.floatValue() if '.' in str(_oldState) else _oldState.intValue()
-            elif str(type(_oldState)) == 'NoneType' or _oldState is None:
-                self.oldState = None
-            else:
-                self.oldState = _oldState.toString()
-            self.item = itemRegistry.getItem(self.itemName)
-            self.isActive = isActive(self.item)
-            self.isItem = True
+                if type(_state) in [OnOffType, OpenClosedType]:
+                    self.state = _state
+                elif type(_state) in [IncreaseDecreaseType, NextPreviousType, PlayPauseType, RewindFastforwardType, StopMoveType, UpDownType]:
+                    self.state = _state.toString()
+                elif _attr is not None:
+                    self.state = _state.floatValue() if '.' in str(_state) else _state.intValue()
+                elif str(type(_state)) == 'NoneType':
+                    self.state = None
+                else:
+                    self.state = _state.toString()
+
+                if type(_oldState) in [OnOffType, OpenClosedType]:
+                    self.oldState = _oldState
+                elif type(_oldState) in [IncreaseDecreaseType, NextPreviousType, PlayPauseType, RewindFastforwardType, StopMoveType, UpDownType]:
+                    self.oldState = _oldState.toString()
+                elif _oldAttr is not None:
+                    self.oldState = _oldState.floatValue() if '.' in str(_oldState) else _oldState.intValue()
+                elif str(type(_oldState)) == 'NoneType' or _oldState is None:
+                    self.oldState = None
+                else:
+                    self.oldState = _oldState.toString()
+
+            if hasattr(_event, 'itemName'):
+                self.itemName = _event.itemName
+                self.item = itemRegistry.getItem(self.itemName)
+                self.isActive = isActive(self.item)
+                self.isItem = True
 
 def wrap_execute(fn):
     """Wrapper to extend the execute function"""

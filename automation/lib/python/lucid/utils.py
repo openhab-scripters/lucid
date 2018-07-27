@@ -71,10 +71,10 @@ def getItemValue(itemName, defVal):
         return item.state.intValue() if item.state not in [NULL, UNDEF] else defVal
     elif type(defVal) is float:
         return item.state.floatValue() if item.state not in [NULL, UNDEF] else defVal
-    elif type(defVal) is str:
-        return item.state.toString() if item.state not in [NULL, UNDEF] else defVal
     elif defVal in [ON, OFF, OPEN, CLOSED]:
         return item.state if item.state not in [NULL, UNDEF] else defVal
+    elif type(defVal) is str:
+        return item.state.toString() if item.state not in [NULL, UNDEF] else defVal
     elif type(defVal) is DateTime:
         # We return a to a org.joda.time.DateTime from a org.eclipse.smarthome.core.library.types.DateTimeType
         return DateTime(item.state.calendar.timeInMillis) if item.state not in [NULL, UNDEF] else defVal
@@ -132,10 +132,10 @@ def postUpdateCheckFirst(itemName, newValue, sendACommand=False):
             compareValue = itemRegistry.getItem(itemName).state.intValue()
         elif type(newValue) is float:
             compareValue = itemRegistry.getItem(itemName).state.floatValue()
-        elif type(newValue) is str:
-            compareValue = itemRegistry.getItem(itemName).state.toString()
         elif newValue in [ON, OFF, OPEN, CLOSED]:
             compareValue = itemRegistry.getItem(itemName).state
+        elif type(newValue) is str:
+            compareValue = itemRegistry.getItem(itemName).state.toString()
         else:
             log.error('Can not set '+str(itemName)+' to the unsupported type '+str(type(newValue))+'. Value: '+str(newValue))
     if (compareValue is not None and compareValue != newValue) or item.state in [NULL, UNDEF]:
