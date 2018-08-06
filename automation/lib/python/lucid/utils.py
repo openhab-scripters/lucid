@@ -110,7 +110,7 @@ def postUpdate(itemName, newValue):
     '''
     events.postUpdate(itemName, str(newValue))
 
-def postUpdateCheckFirst(itemName, newValue, sendACommand=False):
+def postUpdateCheckFirst(itemName, newValue, sendACommand=False, floatPrecision=-1):
     '''
     newValue must be of a type supported by the item
 
@@ -131,7 +131,17 @@ def postUpdateCheckFirst(itemName, newValue, sendACommand=False):
         if type(newValue) is int:
             compareValue = itemRegistry.getItem(itemName).state.intValue()
         elif type(newValue) is float:
-            compareValue = itemRegistry.getItem(itemName).state.floatValue()
+            '''
+            Unfortunately, most decimal fractions cannot be represented exactly as binary fractions.
+            A consequence is that, in general, the decimal floating-point numbers you enter are only
+            approximated by the binary floating-point numbers actually stored in the machine.
+            Therefore, comparing the stored value with the new value will most likely always result in a difference.
+            You can supply the named argument floatPrecision to round the value before comparing
+            '''
+            if floatPrecision == -1:
+                compareValue = itemRegistry.getItem(itemName).state.floatValue()
+            else:
+                compareValue = round(itemRegistry.getItem(itemName).state.floatValue(), floatPrecision)
         elif newValue in [ON, OFF, OPEN, CLOSED]:
             compareValue = itemRegistry.getItem(itemName).state
         elif type(newValue) is str:
@@ -149,9 +159,9 @@ def postUpdateCheckFirst(itemName, newValue, sendACommand=False):
     else:
         return False
 
-def sendCommandCheckFirst(itemName, newValue):
+def sendCommandCheckFirst(itemName, newValue, floatPrecision=-1):
     ''' See postUpdateCheckFirst '''
-    return postUpdateCheckFirst(itemName, newValue, True)
+    return postUpdateCheckFirst(itemName, newValue, sendACommand=True, floatPrecision=floatPrecision)
 
 def hasReloadFinished(exitScript=False):
     '''

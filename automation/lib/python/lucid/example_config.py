@@ -50,23 +50,30 @@ clickatell = {
 
 # Weather Underground Config
 wunderground = {
-    'logLevel': ERROR,
+    'logLevel': DEBUG,
     'stationdata': {
         "weather_upload": True,
-        "station_id": "XXXXXXX",
-        "station_key": "xxxxxxxxxx",
+        "station_id": "XXXXXXXXXX",
+        "station_key": "XXXXXXXXXXXX",
         "upload_frequency": 5
     },
     'sensors': {
-        "tempc": 'XXXXXXXXX',
-        "humidity": 'XXXXXXXXX',
-        "pressurembar": 'XXXXXXXXX',
-        "soiltempc": 'XXXXXXXXX',
-        "soilmoisture": 'XXXXXXXXX',
-        "winddir": 'XXXXXXXXX',
-        "windspeedms": 'XXXXXXXXX',
-        "windgustms": 'XXXXXXXXX',
-        "solarradiation": 'XXXXXXXXX'
+        "tempc": None, # If the device is present, replace None with the name of your OH Item, e.g: "My_Sensor"
+        "humidity": None,
+        "pressurembar": None,
+        "rainhour": None,
+        "raintoday": None,
+        "soiltempc": None,
+        "soilmoisture": None,
+        "winddir": None,
+        "windspeedms": None,
+        "windgustms": None,
+        "windgustdir": None,
+        "winddir_avg2m": None,
+        "windspeedms_avg2m": None,
+        "windgustms_10m": None,
+        "windgustdir_10m": None,
+        "solarradiation": None,
     }
 }
 

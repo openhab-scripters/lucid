@@ -1,4 +1,4 @@
-# lucid v1.3.0 <!-- omit in toc -->
+# lucid v1.4.0 <!-- omit in toc -->
 
 **lucid** is an openHAB jsr223 Jython helper library. It's a derivative work based on [Steve Bate](https://github.com/steve-bate)'s great project [openHab2-jython](https://github.com/OH-Jython-Scripters/openhab2-jython).
 
@@ -48,8 +48,11 @@ These instructions will get you **lucid** up and running on your openHAB server.
    ```
    The last line in the example above defines the path where openHAB can find your jython library files. You can choose a different directory for your installation. We prefer using the directory `/etc/openhab2/automation/lib/python` (The [JSR223 Jython Scripting](https://www.openhab.org/docs/configuration/jsr223-jython.html) documentation uses a different lib directory which is also OK) We will now simply refer to that directory as the **LIB-DIR**. It's the directory where openHAB will look for your jython library files.
 
-* Download the [lucid archive file](https://github.com/OH-Jython-Scripters/lucid/archive/master.zip), extract it in a temporary location and transfer the [lucid](https://github.com/OH-Jython-Scripters/lucid/tree/master/automation/lib/python/lucid) folder together with all its content (found in the zip file's automation/lib/python folder) into your LIB-DIR. 
-* Change the owner, group and file permissions. E.g. cd into the LIB-DIR. and run `sudo chown -R openhab:openhab lucid` followed by `sudo chmod -R 664 lucid`
+* Download the [lucid archive file](https://github.com/OH-Jython-Scripters/lucid/archive/master.zip), extract it in a temporary location.
+* From the extracted zip file, transfer the [lucid](https://github.com/OH-Jython-Scripters/lucid/tree/master/automation/lib/python/lucid) folder together with all its content (found in the zip file's automation/lib/python folder) into your LIB-DIR. 
+* Change the owner, group and file permissions. E.g. cd into the LIB-DIR and run `sudo chown -R openhab:openhab lucid` followed by `sudo chmod -R 664 lucid`
+* From the extracted zip file, transfer all the the files from the [jsr223](https://github.com/OH-Jython-Scripters/lucid/tree/master/automation/jsr223) (found in the zip file's automation/jsr223 folder) into your `automation/jsr223` directory
+* Change the owner, group and file permissions. E.g. cd into your `automation/jsr223` directory and run `sudo chown openhab:openhab 000_*.py` followed by `sudo chmod 664 000_*.py`
 
 * Create an openHAB item named `ZZZ_Test_Reload_Finished` and put it last in your items file. Make that item persisted "on change". In the example below, persistance "on change" is assigned to the group `G_PersistOnChange`
 ```
