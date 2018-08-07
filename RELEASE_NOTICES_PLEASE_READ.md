@@ -4,7 +4,7 @@ Below are important instructions if you are upgrading lucid from a previous vers
 **PLEASE MAKE SURE THAT YOU GO THROUGH ALL STEPS BELOW WHERE IT SAYS "BREAKING CHANGE", DON'T SKIP ANY VERSION**
 
 ***Version 1.4.0***
-- **BREAKING CHANGE** Added [000_StartupTrigger.py](https://github.com/OH-Jython-Scripters/lucid/blob/master/automation/jsr223/000_StartupTrigger.py) to the repository needed for start up triggers to work. Added installation instructions in [README.md](https://github.com/OH-Jython-Scripters/lucid/blob/master/README.md#installing). You'll need to add that file into your exixting installation.
+- **BREAKING CHANGE** Added [000_StartupTrigger.py](https://github.com/OH-Jython-Scripters/lucid/blob/master/automation/jsr223/000_StartupTrigger.py) to the repository needed for start up triggers to work. Added installation instructions in [README.md](https://github.com/OH-Jython-Scripters/lucid/blob/master/README.md#installing). You'll need to add that file into your existing installation.
 - The lucid.utils functions `postUpdateCheckFirst` and `sendCommandCheckFirst` often failed to compare a stored float value with the new one. For example the float value of `1.3` might be stored as `1.29999995232`. Due to that most decimal fractions cannot be represented exactly as binary fractions comparison was impossible. This update adds an additional and optional keyword argument to the functions `postUpdateCheckFirst` and `sendCommandCheckFirst` named `floatPrecision`. If you supply it, rounding will occurr on the stored value to the number of decimals you specify. Example: `postUpdateCheckFirst('V_RainFallHour' 1.3, floatPrecision=1)` would not post an update to the item if the currently stored value is `1.29999995232`
 
 ***Version 1.3.0***
