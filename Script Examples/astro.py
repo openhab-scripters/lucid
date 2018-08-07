@@ -60,10 +60,10 @@ class TimeOfDayCalc(object):
 
         # Get the time period start times for today
         now = DateTime()
-        morningStart = now.withTimeAtStartOfDay().plusHours(self.config.timeOfDay['morningStart']['Hour']).plusMinutes(self.config.timeOfDay['morningStart']['Minute']).toInstant()
-        dayStart = now.withTimeAtStartOfDay().plusHours(self.config.timeOfDay['dayStart']['Hour']).plusMinutes(self.config.timeOfDay['dayStart']['Minute']).toInstant()
-        eveningStart = now.withTimeAtStartOfDay().plusHours(self.config.timeOfDay['eveningStart']['Hour']).plusMinutes(self.config.timeOfDay['eveningStart']['Minute']).toInstant()
-        nightStart   = now.withTimeAtStartOfDay().plusHours(self.config.timeOfDay['nightStart']['Hour']).plusMinutes(self.config.timeOfDay['nightStart']['Minute']).toInstant()
+        morningStart = now.withTime(self.config.timeOfDay['morningStart']['Hour'],self.config.timeOfDay['morningStart']['Minute'],0,0).toInstant()
+        dayStart = now.withTime(self.config.timeOfDay['dayStart']['Hour'],self.config.timeOfDay['dayStart']['Minute'],0,0).toInstant()
+        eveningStart = now.withTime(self.config.timeOfDay['eveningStart']['Hour'],self.config.timeOfDay['eveningStart']['Minute'],0,0).toInstant()
+        nightStart = now.withTime(self.config.timeOfDay['nightStart']['Hour'],self.config.timeOfDay['nightStart']['Minute'],0,0).toInstant()
 
         timeOfDay = TIMEOFDAY['NIGHT']
         if (now.isAfter(morningStart) and now.isBefore(dayStart)):
