@@ -49,31 +49,36 @@ clickatell = {
 }
 
 # Weather Underground Config
+# Sensors for each type of weather data are put in a python list in priority order.
+# The first sensor that has been reporting data since the time out defined in sensor_dead_after_mins
+# will be used. If you don't have a certain sensor type, just put None (Don't put None inside a list)
+# Not mandatory. You may remove.
 wunderground = {
     'logLevel': DEBUG,
     'stationdata': {
-        "weather_upload": True,
-        "station_id": "XXXXXXXXXX",
-        "station_key": "XXXXXXXXXXXX",
-        "upload_frequency": 5
+        "weather_upload": False, # Set to True to actually upload anything
+        "station_id": "XXXXXX",
+        "station_key": "xxxxxxxx",
+        "upload_frequency": 1
     },
+    "sensor_dead_after_mins": 65, # If sensors hasn't reported within this time, they are presumed dead
     'sensors': {
-        "tempc": None, # If the device is present, replace None with the name of your OH Item, e.g: "My_Sensor"
-        "humidity": None,
-        "pressurembar": None,
-        "rainhour": None,
-        "raintoday": None,
-        "soiltempc": None,
-        "soilmoisture": None,
-        "winddir": None,
-        "windspeedms": None,
-        "windgustms": None,
-        "windgustdir": None,
-        "winddir_avg2m": None,
-        "windspeedms_avg2m": None,
-        "windgustms_10m": None,
-        "windgustdir_10m": None,
-        "solarradiation": None,
+        "tempc": ['XXX', 'YYY'], # The script will pick the first sensor in the list that is not presumed dead
+        "humidity": [None],
+        "pressurembar": [None],
+        "rainhour": [None],
+        "raintoday": [None],
+        "soiltempc": [None],
+        "soilmoisture": [None],
+        "winddir": [None],
+        "windspeedms": [None], # Using a 10m avg device here will become much smoother
+        "windgustms": [None], # Using a 10m avg device here will become much smoother
+        "windgustdir": [None], # Using a 10m avg device here will become much smoother
+        "winddir_avg2m": [None],
+        "windspeedms_avg2m": [None],
+        "windgustms_10m": [None], # Do not set if using a 10m avg device for instant wind speed above
+        "windgustdir_10m": [None], # Do not set if using a 10m avg device for instant wind gust above
+        "solarradiation": ['XXXXXX', 'YYYYYYY'] # The script will pick the first solar light sensor in the list with the highest value
     }
 }
 
