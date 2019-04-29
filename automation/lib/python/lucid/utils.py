@@ -14,7 +14,7 @@ from lucid.jsr223.scope import events, itemRegistry
 
 # Some useful dictionaries
 PRIO = {'LOW': 0, 'MODERATE': 1, 'HIGH': 2, 'EMERGENCY': 3}
-LUX_LEVEL = {'BLACK': 4, 'DARK': 60, 'SHADY': 380}
+LUX_LEVEL = {'BLACK': 6, 'DARK': 60, 'SHADY': 380}
 LIGHT_LEVEL = {'BLACK': 0, 'DARK': 1, 'SHADY': 2, 'BRIGHT': 3}
 PUSHOVER_PRIO = {'LOWEST': -2, 'LOW': -1, 'NORMAL': 0, 'HIGH': 1, 'EMERGENCY': 2}
 MODE = {'OFF': 0, 'ON': 1}
@@ -25,7 +25,6 @@ WIND_SPEEDS = {'CALM_TO_LIGHT_BREEZE': 3.4, 'GENTLE_BREEZE': 5.5, 'MODERATE_BREE
 WIND_TEXTS = {0: u'Calm to light breeze. 0–3,3 m/s', 1: u'Gentle breeze. 3,4–5,4 m/s', 2: u'Moderate breeze. 5,5–7,9 m/s', 3: u'Fresh breeze. 8,0–10,7 m/s', 4: u'Strong breeze. 10,8–13,8 m/s', 5: u'Moderate gale. 13,9–17,1 m/s', 6: u'Fresh gale. 17,2–20,7 m/s', 7: u'Strong gale. 20,8–24,4 m/s', 8: u'Storm. 24,5–28,4 m/s', 9: u'Violent storm. 28,5–32,6 m/s', 10: u'Hurricane. Mer än 32,6 m/s'}
 
 # Some useful constants
-PUSHOVER_DEF_DEV = "d5833"
 
 NULL = UnDefType.NULL
 UNDEF = UnDefType.UNDEF
@@ -98,17 +97,19 @@ def getLastUpdate(pe, item):
         log.warning('Exception when getting lastUpdate data for item: ' + unicode(item.name) + ', returning 1970-01-01T00:00:00Z')
         return DateTime(0)
 
-def sendCommand(itemName, newValue):
+def sendCommand(item, newValue):
     '''
     Sends a command to an item regerdless of it's current state
+    The item can be passed as an OH item type or by using the item's name (string)
     '''
-    events.sendCommand(itemName, str(newValue))
+    events.sendCommand((itemRegistry.getItem(item) if isinstance(item, basestring) else item), newValue)
 
-def postUpdate(itemName, newValue):
+def postUpdate(item, newValue):
     '''
     Posts an update to an item regerdless of it's current state
+    The item can be passed as an OH item type or by using the item's name (string)
     '''
-    events.postUpdate(itemName, str(newValue))
+    events.postUpdate((itemRegistry.getItem(item) if isinstance(item, basestring) else item), newValue)
 
 def postUpdateCheckFirst(itemName, newValue, sendACommand=False, floatPrecision=-1):
     '''
@@ -151,10 +152,10 @@ def postUpdateCheckFirst(itemName, newValue, sendACommand=False, floatPrecision=
     if (compareValue is not None and compareValue != newValue) or item.state in [NULL, UNDEF]:
         if sendACommand:
             log.debug('New sendCommand value for '+itemName+' is '+str(newValue))
-            sendCommand(itemName, newValue)
+            events.sendCommand(item, newValue)
         else:
             log.debug('New postUpdate value for '+itemName+' is '+str(newValue))
-            postUpdate(itemName, newValue)
+            events.postUpdate(item, newValue)
         return True
     else:
         return False
