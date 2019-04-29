@@ -31,11 +31,6 @@ customGroupNames = {
     'lockDevice': 'G_Lock', # Group Item name that you've assigned to all your door lock devices
 }
 
-autoremote = {
-    'password': 'secret',
-    'key': 'very-long-key-goes-here',
-    }
-
 clickatell = {
     'sender': '49123456789',
     'user': 'xxxxxxxxxxxx',
@@ -57,9 +52,10 @@ wunderground = {
     'logLevel': DEBUG,
     'stationdata': {
         "weather_upload": False, # Set to True to actually upload anything
+        "rapid_fire_mode": True, # If you would like to send real-time data every few seconds, select Rapid Fire. RapidFire Updates allow you to update weather station conditions at a frequency up to once observation every 2.5 seconds. Web site visitors will see these observations change in real-time on the wunderground.com site.
         "station_id": "XXXXXX",
         "station_key": "xxxxxxxx",
-        "upload_frequency": 1
+        "upload_frequency_seconds": 30 # Must be a multiple of 10, e.g. 10, 20, 50, 120, 600 etc
     },
     "sensor_dead_after_mins": 65, # If sensors hasn't reported within this time, they are presumed dead
     'sensors': {
