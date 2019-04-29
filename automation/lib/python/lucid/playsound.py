@@ -20,7 +20,7 @@ def playsound(fileName, ttsPrio=PRIO['MODERATE'], **keywords):
     '''
     module_name = 'playsound'
     log = logging.getLogger(LOG_PREFIX+'.'+module_name)
-    log.setLevel(logging.DEBUG)
+    log.setLevel(logging.INFO)
 
     def getDefaultRoom():
         # Search for the default room to speak in
