@@ -73,7 +73,7 @@ def getItemValue(itemName, defVal):
     elif defVal in [ON, OFF, OPEN, CLOSED]:
         return item.state if item.state not in [NULL, UNDEF] else defVal
     elif type(defVal) is str:
-        return item.state.toString() if item.state not in [NULL, UNDEF] else defVal
+        return item.state.toFullString() if item.state not in [NULL, UNDEF] else defVal
     elif type(defVal) is DateTime:
         # We return a to a org.joda.time.DateTime from a org.eclipse.smarthome.core.library.types.DateTimeType
         return DateTime(item.state.calendar.timeInMillis) if item.state not in [NULL, UNDEF] else defVal

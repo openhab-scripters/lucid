@@ -2,6 +2,9 @@
 
 **lucid** is an openHAB jsr223 Jython helper library. It's a derivative work based on [Steve Bate](https://github.com/steve-bate)'s great project [openHab2-jython](https://github.com/OH-Jython-Scripters/openhab2-jython).
 
+## openHAB compatibility notice
+lucid currently works with openHAB 2.3 only and is currently awaiting to be merged into the Jython scripting for openHAB 2.x repo for compatibility with later versions of openHAB.
+
 **lucid** takes openHAB Jython scripting to a higher level and can be used for general scripting purposes, including defining rules, triggers and conditions. **lucid** aims to be easy to use and to provide a good documentation. (The documentation work has just begun)
 - [Getting Started with lucid](#getting-started-with-lucid)
     - [Prerequisites](#prerequisites)

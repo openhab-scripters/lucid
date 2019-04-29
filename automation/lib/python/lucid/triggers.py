@@ -26,13 +26,15 @@ class ItemStateUpdateTrigger(Trigger):
         Trigger.__init__(self, triggerName, "core.ItemStateUpdateTrigger", Configuration(config))
 
 class ItemStateChangeTrigger(Trigger):
-    def __init__(self, itemName, state=None, triggerName=None):
+    def __init__(self, itemName, state=None, triggerName=None, previousState=None):
         triggerName = triggerName or uuid.uuid1().hex
         config = { "itemName": itemName }
         if state is not None:
             config["state"] = state
+        if previousState is not None:
+            config["previousState"] = previousState
         Trigger.__init__(self, triggerName, "core.ItemStateChangeTrigger", Configuration(config))
-
+        
 class ItemCommandTrigger(Trigger):
     def __init__(self, itemName, command=None, triggerName=None):
         triggerName = triggerName or uuid.uuid1().hex
